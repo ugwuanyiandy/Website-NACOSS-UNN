@@ -21,7 +21,7 @@
 //Modify this array values to suit your settings
 //Do not commit this file afterwards
 
-$GLOBALS['contact_email'] = "example@domain.com"; //NACOSS UNN contact email
+$GLOBALS['contact_email'] = "example@domain.com"; //NACOSS UNN contact emailnn
 $GLOBALS['default_db_name'] = "nacoss_db"; //Default database name (Assuming there might be need for multiple databases)
 $GLOBALS['db_username'] = "root"; //Database username
 $GLOBALS['db_password'] = ""; //Database password
