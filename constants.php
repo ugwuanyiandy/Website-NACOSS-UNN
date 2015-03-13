@@ -26,5 +26,5 @@ $GLOBALS['default_db_name'] = "nacoss_db"; //Default database name (Assuming the
 $GLOBALS['db_username'] = "root"; //Database username
 $GLOBALS['db_password'] = ""; //Database password
 $GLOBALS['hostname'] = "http://localhost/Website-NACOSS-UNN/"; //Location of this project in your computer (relative to localhost)
-$GLOBALS['db_hostname'] = "http://localhost/"; //Database hostname
+$GLOBALS['db_hostname'] = "localhost"; //Database hostname
 $GLOBALS['ndg_homepage'] = "http://localhost/ndg/"; //NDG Homepage
