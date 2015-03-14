@@ -97,9 +97,9 @@ limitations under the License.
     <body class="metro" style="background-image: url(img/bg.jpg); background-repeat: repeat;">
         <div class="container bg-white">            
             <?php require_once './header.php'; ?>
-            <br/>
             <div class="padding20" id="inquiries">
-                <p>If you would like to contact NACOSS UNN Chapter, here’s how you can reach us:</p>
+                <h1 class="fg-dark">Contact Us</h1>
+                <p>If you would like to get in touch with NACOSS UNN Chapter, here’s how you can reach us:</p>
                 <br/>
                 <div class="panel bg-white no-border">
                     <strong>CALL <i class="icon-phone-2"></i></strong>
