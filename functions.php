@@ -35,6 +35,28 @@ function isLoggedIn() {
     return false;
 }
 
+function getContactEmail() {
+    $query = "select value from settings where name = 'email'";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        return $row['value'];
+    }
+    return "";
+}
+
+function getContactNumbers() {
+    $query = "select value from settings where name = 'help_lines'";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        return empty($row['value']) ? array() : explode(",", $row['value']);
+    }
+    return array();
+}
+
 /**
  * @returns user display name
  */
@@ -76,11 +98,14 @@ function registerUser($ID, $password1, $password2, $email, $first_name, $last_na
     //Step 1: Validate details
     //Step 2: Add to database
     //Step 3: Mail login id and password to user
-//    mail($email, "Subject: NACOSS UNN login details",
-//            wordwrap(getVerificationMessage($ID, $password1), 70, "\r\n"),
-//            "From: NACOSS UNN\r\n"
-//            . 'Reply-To: ' . $GLOBALS['contact_email'] . "\r\n"
-//            . 'X-Mailer: PHP/' . phpversion());
+    try {
+        mail($email, "Subject: NACOSS UNN login details", wordwrap(getVerificationMessage($ID, $password1), 70, "\r\n"), "From: NACOSS UNN\r\n"
+                . 'Reply-To: ' . $GLOBALS['contact_email'] . "\r\n"
+                . 'X-Mailer: PHP/' . phpversion());
+    } catch (Exception $exc) {
+        return false;
+    }
+
     return false; //Disabled temporarily
 }
 
@@ -106,7 +131,9 @@ function getUserID() {
  * @returns students password from cookies
  */
 function getUserPassword() {
-    return filter_input(INPUT_COOKIE, "pwd");
+    return
+
+            filter_input(INPUT_COOKIE, "pwd");
 }
 
 function setUserCookies($id, $password) {
