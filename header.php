@@ -33,6 +33,9 @@ $loggedIn = isLoggedIn();
                     <li>
                         <a class="bg-hover-dark" href="contact.php">Contact</a>
                     </li>
+                    <li>
+                        <a class="bg-hover-dark" href="#">About Us</a>
+                    </li>
 
                 </ul>
 
