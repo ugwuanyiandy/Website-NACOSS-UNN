@@ -20,10 +20,19 @@
 require_once './constants.php';
 
 /**
- * returns true if user is logged in, else false
+ * Validates user cookies against user details in database
+ * @return boolean true if user cookies match user details in database, else false
  */
 function isLoggedIn() {
-    return !empty(getID());
+    $query = "select password from users where regno = '" . getUserID() . "'";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        $match = strcasecmp($row['password'], getUserPassword());
+        return empty($row['password']) ? false : $match === 0;
+    }
+    return false;
 }
 
 /**
@@ -31,7 +40,7 @@ function isLoggedIn() {
  */
 function getDisplayName() {
     if (isLoggedIn()) {
-        $query = "select first_name, last_name from users where regno = '" . getID() . "'";
+        $query = "select first_name, last_name from users where regno = '" . getUserID() . "'";
         $link = getDefaultDBConnection();
         $result = mysqli_query($link, $query);
         if ($result) {
@@ -39,26 +48,84 @@ function getDisplayName() {
             return $row['first_name'] . " " . $row['last_name'];
         }
     }
-
     return "";
 }
 
 /**
- * @returns students registration number 
+ * Validates user details and set cookies
+ * @param type $ID registration number
+ * @param type $password user password
+ * @return boolean true if user was successfully validated and cookies was sucessfully set, false otherwise
  */
-function getID() {
+function loginUser($ID, $password) {
+    if (!(empty($ID) | empty($password))) {
+        $query = "select password from users where regno = '$ID'";
+        $link = getDefaultDBConnection();
+        $result = mysqli_query($link, $query);
+        if ($result) {
+            $row = mysqli_fetch_array($result);
+            $password = sha1($password);
+            $match = strcasecmp($password, $row['password']);
+            return $match === 0 ? setUserCookies($ID, $password) : false;
+        }
+    }
+    return false;
+}
+
+function registerUser($ID, $password1, $password2, $email, $first_name, $last_name, $other_names, $dept, $level, $phone) {
+    //Step 1: Validate details
+    //Step 2: Add to database
+    //Step 3: Mail login id and password to user
+//    mail($email, "Subject: NACOSS UNN login details",
+//            wordwrap(getVerificationMessage($ID, $password1), 70, "\r\n"),
+//            "From: NACOSS UNN\r\n"
+//            . 'Reply-To: ' . $GLOBALS['contact_email'] . "\r\n"
+//            . 'X-Mailer: PHP/' . phpversion());
+    return false; //Disabled temporarily
+}
+
+function getVerificationMessage($ID, $password) {
+    $message = '<html>'
+            . '<body">'
+            . 'find your login details below:<br/>'
+            . '<strong>ID:</strong> ' . $ID . '<br/>'
+            . '<strong>Password:</strong> ' . $password . '<br/>'
+            . '</body>'
+            . '</html>';
+    return $message;
+}
+
+/**
+ * @returns students registration number from cookies
+ */
+function getUserID() {
     return filter_input(INPUT_COOKIE, "id");
 }
 
-function setID($id) {
+/**
+ * @returns students password from cookies
+ */
+function getUserPassword() {
+    return filter_input(INPUT_COOKIE, "pwd");
+}
+
+function setUserCookies($id, $password) {
     $expire = time() + (60 * 60 * 24 * 7); //1 week i.e 60secs * 60mins * 2hhrs * 7days
     $ok = setcookie("id", $id, $expire);
+    if ($ok) {
+        $ok = setcookie("pwd", $password, $expire);
+    }
     return $ok;
 }
 
-function clearID() {
-    $ok = setcookie("id", "", time() - 3600);
-    return $ok;
+/**
+ * Clears all cookies
+ * @return type true if all cookies were removed, false otherwise
+ */
+function clearUserCookies() {
+    $clearIDOk = setcookie("id", "", time() - 3600);
+    $clearPwdOk = setcookie("pwd", "", time() - 3600);
+    return $clearIDOk && $clearPwdOk;
 }
 
 /**
