@@ -19,22 +19,22 @@ $loggedIn = isLoggedIn();
                         <?php } ?>
                     </li>
                     <li>
-                        <a class="bg-hover-dark" href="#">Forum</a>
+                        <a class="bg-hover-dark" target="_blank" href="#">Forum</a>
                     </li>
                     <li>
-                        <a class="bg-hover-dark" href="#">Prospectus</a>
+                        <a class="bg-hover-dark" href="prospectus.php">Prospectus</a>
                     </li>
                     <li>
-                        <a class="bg-hover-dark" href="#">Library</a>
+                        <a class="bg-hover-dark" href="library.php">Library</a>
                     </li>
                     <li>
-                        <a class="bg-hover-dark" href="#">Alumni</a>
+                        <a class="bg-hover-dark" target="_blank" href="#">Alumni</a>
                     </li>
                     <li>
                         <a class="bg-hover-dark" href="contact.php">Contact</a>
                     </li>
                     <li>
-                        <a class="bg-hover-dark" href="#">About Us</a>
+                        <a class="bg-hover-dark" href="about.php">About Us</a>
                     </li>
 
                 </ul>
