@@ -1,4 +1,8 @@
-<?php include_once './constants.php';?>
+<?php
+require_once './functions.php';
+$loggedIn = isLoggedIn();
+?>
+
 <div class="">
     <div class="navigation-bar bg-NACOSS-UNN-green">
         <div class="container">
@@ -8,7 +12,11 @@
                 <a class="element1 pull-menu" href="#"></a>
                 <ul class="element-menu">
                     <li class="on-phone on-tablet no-desktop">
-                        <a class="bg-hover-dark" href="#">Profile</a>
+                        <?php if ($loggedIn) { ?>
+                            <a class="bg-hover-dark" href="profile.php">Profile</a>
+                        <?php } else { ?>
+                            <a class="bg-hover-dark" href="login.php">Login | Register</a>
+                        <?php } ?>
                     </li>
                     <li>
                         <a class="bg-hover-dark" href="#">Forum</a>
@@ -23,7 +31,7 @@
                         <a class="bg-hover-dark" href="#">Alumni</a>
                     </li>
                     <li>
-                        <a class="bg-hover-dark" href="#">Contact</a>
+                        <a class="bg-hover-dark" href="contact.php">Contact</a>
                     </li>
 
                 </ul>
@@ -31,19 +39,25 @@
                 <div class="no-phone no-tablet">
 
                     <span class="element-divider place-right"></span>
-                    <button class="element bg-transparent bg-hover-dark place-right">
-                        <i class="icon-user-2"></i>
-                        John Doe
-                    </button>
-<!--
-                    <span class="element-divider place-right"></span>
+                    <?php if ($loggedIn) { ?>
+                        <a href="profile.php" title="Profile" class="element bg-transparent bg-hover-dark place-right">
+                            <i class="icon-user"></i> &nbsp <?= getDisplayName() ?>
+                        </a>
+                    <?php } else { ?>
+                        <a href="login.php" title="Login or Register" class="element bg-transparent bg-hover-dark place-right">
+                            Login | Register
+                        </a>
+                    <?php } ?>
 
-                    <a class="element place-right fg-lightRed bg-hover-lightRed fg-hover-white" href="#" target="_blank">
-                        <i class="icon-google-plus"></i>
-                    </a>
-                    <a class="element place-right fg-darkBlue bg-hover-darkBlue fg-hover-white" href="#" target="_blank">
-                        <i class="icon-facebook"></i>
-                    </a>-->
+                    <!--
+                                        <span class="element-divider place-right"></span>
+                    
+                                        <a class="element place-right fg-lightRed bg-hover-lightRed fg-hover-white" href="#" target="_blank">
+                                            <i class="icon-google-plus"></i>
+                                        </a>
+                                        <a class="element place-right fg-darkBlue bg-hover-darkBlue fg-hover-white" href="#" target="_blank">
+                                            <i class="icon-facebook"></i>
+                                        </a>-->
                 </div>
             </div>
         </div>
