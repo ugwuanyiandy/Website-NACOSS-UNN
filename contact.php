@@ -1,18 +1,19 @@
 <?php
-if (isset($_POST['submit'])) {
+$request = filter_input(INPUT_POST, "submit");
+if (isset($request)) {
     //ini_set('display_errors',1);
     require_once 'constants.php';
     //Set values
-    $contact_email = $GLOBALS['contact_email'];
+    $contact_email = getContactEmail();
 
-    $user_email = filter_input(INPUT_POST, "email");
-    $company = filter_input(INPUT_POST, "company");
-    $comment = filter_input(INPUT_POST, "message");
-    $name = filter_input(INPUT_POST, "name");
-    $address = filter_input(INPUT_POST, "address");
-    $city = filter_input(INPUT_POST, "city");
-    $region = filter_input(INPUT_POST, "region");
-    $phone = filter_input(INPUT_POST, "phone");
+    $user_email = html_entity_decode(filter_input(INPUT_POST, "email"));
+    $company = html_entity_decode(filter_input(INPUT_POST, "company"));
+    $comment = html_entity_decode(filter_input(INPUT_POST, "message"));
+    $name = html_entity_decode(filter_input(INPUT_POST, "name"));
+    $address = html_entity_decode(filter_input(INPUT_POST, "address"));
+    $city = html_entity_decode(filter_input(INPUT_POST, "city"));
+    $region = html_entity_decode(filter_input(INPUT_POST, "region"));
+    $phone = html_entity_decode(filter_input(INPUT_POST, "phone"));
 
     //Message
     $message = "Client name: " . $name;
@@ -26,13 +27,11 @@ if (isset($_POST['submit'])) {
 
     if (isset($user_email) && isset($contact_email) && isset($comment)) {
         try {
-            if (mail($contact_email, "Subject: Interested Customer", wordwrap($message, 70, "\r\n"), "From: " . $user_email . "\r\n" .
+            if (mail($contact_email, "Subject: Email from Website", wordwrap($message, 70, "\r\n"), "From: " . $user_email . "\r\n" .
                             'Reply-To: ' . $contact_email . "\r\n" .
                             'X-Mailer: PHP/' . phpversion())) {
                 $success = true;
                 $comment = "";
-//                empty($_POST);
-                $_POST = "";
             } else {
                 $success = false;
             }
@@ -105,8 +104,15 @@ limitations under the License.
                 <div class="panel bg-white no-border">
                     <strong>CALL <i class="icon-phone-2"></i></strong>
                     <br/>
-                    <span class="fg-lightBlue">+23412345678</span>,
-                    <span class="fg-lightBlue">+23487654321</span>
+                    <?php
+                    $array = getContactNumbers();
+                    for ($index = 0; $index < count($array); $index++) {
+                        echo '<span class="fg-lightBlue">' . $array[$index] . '</span>';
+                        if ($index < count($array) - 1) {
+                            echo ', ';
+                        }
+                    }
+                    ?>
                 </div>
                 <br/>
                 <div>
@@ -116,7 +122,7 @@ limitations under the License.
                     </p>
                     <br/>
 
-                    <?php if (isset($_POST['submit'])) { ?>
+                    <?php if ($request) { ?>
                         <div class="row container">
                             <div class="label">
                                 <?php if ($success) { ?>
@@ -132,97 +138,64 @@ limitations under the License.
                         </div>
                     <?php }
                     ?>
-                    <form method='post' enctype='multipart/form-data' id='gform_1'  
-                          action='contact.php#inquiries'>
+                    <form method='post' enctype='multipart/form-data' action='contact.php#inquiries'>
                         <div  class="container">
-                            <div class="grid" id='gform_fields_1' >
-                                <div class="row" id='field_1_1' >
-                                    <label class="span2" for='input_1_1'>Name<span class="fg-red">*</span></label>
+                            <div class="grid" >
+                                <div class="row" >
+                                    <label class="span2">Name<span class="fg-red">*</span></label>
                                     <div class="span7">
-                                        <input name='name' required style="width: inherit" id='input_1_1' type='text' <?php
-                                        if (isset($_POST['submit'])) {
-                                            echo "value='$name'";
-                                        }
-                                        ?>  tabindex='1' />
+                                        <input name='name' required style="width: inherit" type='text' 
+                                               <?= $request ? "value='$name'" : ""; ?> tabindex='1' />
                                     </div>
                                 </div>
-                                <div class="row" id='field_1_4'  >
-                                    <label class="span2" for='input_1_4'>Company</label>
+                                <div class="row" >
+                                    <label class="span2">Company</label>
                                     <div class="span7">
-                                        <input name='company' style="width: inherit" id='input_1_4' type='text' <?php
-                                        if (isset($_POST['submit'])) {
-                                            echo "value='$company'";
-                                        }
-                                        ?>  tabindex='2'   />
+                                        <input name='company' style="width: inherit" type='text' 
+                                               <?= $request ? "value='$company'" : ""; ?>  tabindex='2'/>
                                     </div>
                                 </div>
-                                <div class="row" id='field_1_8'  >
-                                    <label class="span2" for='input_1_8_1'>Address<span class="fg-red">*</span></label>
-                                    <div class="span7" id='input_1_8'>
-                                        <input type='text' required placeholder="Street Address" name='address' style="width: inherit" 
-                                               id='input_1_8_1' <?php
-                                               if (isset($_POST['submit'])) {
-                                                   echo "value='$address'";
-                                               }
-                                               ?> tabindex='3' />
-                                        <label for='input_1_8_1'  id='input_1_8_1_label'></label>
+                                <div class="row" >
+                                    <label class="span2">Address<span class="fg-red">*</span></label>
+                                    <div class="span7">
+                                        <input type='text' required placeholder="Street Address" name='address' style="width: inherit"
+                                               <?= $request ? "value='$address'" : ""; ?> tabindex='3' />
                                         <input type='text' required placeholder="City" name='city'
-                                               id='input_1_8_3' <?php
-                                               if (isset($_POST['submit'])) {
-                                                   echo "value='$city'";
-                                               }
-                                               ?> tabindex='4' />
-                                        <label for='input_1_8_3' id='input_1_8_3_label'></label>
+                                               <?= $request ? "value='$city'" : ""; ?> tabindex='4' />
                                         <input type='text' required placeholder="State / Region" name='region' 
-                                               id='input_1_8_4' <?php
-                                               if (isset($_POST['submit'])) {
-                                                   echo "value='$region'";
-                                               }
-                                               ?> tabindex='5'   />
-                                        <label for='input_1_8_4' id='input_1_8_4_label'></label>
-
+                                               <?= $request ? "value='$region'" : ""; ?> tabindex='5'   />
                                     </div>
                                 </div>
 
-                                <div class="row" id='field_1_5'  >
-                                    <label class="span2" for='input_1_5'>Phone</label>
+                                <div class="row" >
+                                    <label class="span2">Phone</label>
                                     <div class="span7">
-                                        <input name='phone' id='input_1_5' type='tel' <?php
-                                        if (isset($_POST['submit'])) {
-                                            echo "value='$phone'";
-                                        }
-                                        ?>  tabindex='6'  />
+                                        <input name='phone' type='tel' 
+                                               <?= $request ? "value='$phone'" : ""; ?>  tabindex='6'  />
                                     </div>
                                 </div>
-                                <div class="row" id='field_1_2'  >
-                                    <label class="span2" for='input_1_2'>Email Address<span class="fg-red">*</span>
+                                <div class="row" >
+                                    <label class="span2">Email Address<span class="fg-red">*</span>
                                     </label>
                                     <div class="span7">
-                                        <input name='email' required style="width: inherit" id='input_1_2' type='email' <?php
-                                        if (isset($_POST['submit'])) {
-                                            echo "value='$user_email'";
-                                        }
-                                        ?>   tabindex='7'   />
+                                        <input name='email' required style="width: inherit" type='email' 
+                                               <?= $request ? "value='$user_email'" : ""; ?>   tabindex='7'   />
                                     </div>
                                 </div>
-                                <div class="row" id='field_1_3'>
-                                    <label class="span2" for='input_1_3'>Comments<span class="fg-red">*</span>
+                                <div class="row">
+                                    <label class="span2">Comments<span class="fg-red">*</span>
                                     </label>
                                     <div class="span7">
-                                        <textarea name='message' required style="width: inherit" id='input_1_3'  tabindex='8' rows='10'><?php
-                                            if (isset($_POST['submit'])) {
-                                                echo $comment;
-                                            }
-                                            ?></textarea>
+                                        <textarea name='message' required style="width: inherit" tabindex='8' rows='10'><?= $request ? "value='$comment'" : ""; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="row no-phone offset2">
-                                    <input class="button default bg-lightBlue bg-hover-amber" type='submit'
-                                           name='submit' id='gform_submit_button_1'  value='Send Message' tabindex='9'/>
+                                    <input class="button default bg-NACOSS-UNN-green bg-hover-dark" type='submit'
+                                           name='submit' value='Send Message' tabindex='9'/>
                                 </div>
                                 <div class="row on-phone no-tablet no-desktop padding20 ntp nbp">
-                                    <input class="button default bg-lightBlue bg-hover-amber" type='submit'
-                                           name='submit' id='gform_submit_button_1'  value='Send Message' tabindex='9'/>
+                                    <input class="button default bg-NACOSS-UNN-green bg-hover-dark" type='submit'
+                                           name='submit' value='Send Message' tabindex='9'/>
                                 </div>
                             </div>
                         </div>
