@@ -190,11 +190,11 @@ limitations under the License.
                                     </div>
                                 </div>
                                 <div class="row no-phone offset2">
-                                    <input class="button default bg-NACOSS-UNN-green bg-hover-dark" type='submit'
+                                    <input class="button default bg-NACOSS-UNN bg-hover-dark" type='submit'
                                            name='submit' value='Send Message' tabindex='9'/>
                                 </div>
                                 <div class="row on-phone no-tablet no-desktop padding20 ntp nbp">
-                                    <input class="button default bg-NACOSS-UNN-green bg-hover-dark" type='submit'
+                                    <input class="button default bg-NACOSS-UNN bg-hover-dark" type='submit'
                                            name='submit' value='Send Message' tabindex='9'/>
                                 </div>
                             </div>

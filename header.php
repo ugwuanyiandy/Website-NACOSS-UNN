@@ -4,7 +4,7 @@ $loggedIn = isLoggedIn();
 ?>
 
 <div class="">
-    <div class="navigation-bar bg-NACOSS-UNN-green">
+    <div class="navigation-bar bg-NACOSS-UNN">
         <div class="container">
             <div class="navigation-bar-content">
                 <a class="element  bg-hover-dark" href="index.php">NACOSS UNN</a>
@@ -24,9 +24,11 @@ $loggedIn = isLoggedIn();
                     <li>
                         <a class="bg-hover-dark" href="prospectus.php">Prospectus</a>
                     </li>
-                    <li>
-                        <a class="bg-hover-dark" href="library.php">Library</a>
-                    </li>
+                    <?php if ($loggedIn) { ?>
+                        <li>
+                            <a class="bg-hover-dark" href="library.php">Library</a>
+                        </li>
+                    <?php } ?>
                     <li>
                         <a class="bg-hover-dark" target="_blank" href="#">Alumni</a>
                     </li>

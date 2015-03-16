@@ -52,9 +52,11 @@ limitations under the License.
         <div class="container bg-white">            
             <?php require_once './header.php';?>
             <br/>
+            <div class="padding20">
             
             <!--Your code goes here-->
             
+            </div>
             <br/>
             <?php require_once './footer.php';?>
         </div>

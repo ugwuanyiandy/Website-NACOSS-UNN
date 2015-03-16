@@ -8526,7 +8526,7 @@ a {
   background-color: #60a917 !important;
 }
 
-.metro .bg-NACOSS-UNN-green {
+.metro .bg-NACOSS-UNN {
   background-color: #60a917 !important;
 }
 
@@ -8689,7 +8689,7 @@ a {
 .metro .fg-green {
   color: #60a917 !important;
 }
-.metro .fg-NACOSS-UNN-green {
+.metro .fg-NACOSS-UNN {
   color: #60a917 !important;
 }
 .metro .fg-emerald {
@@ -9166,6 +9166,9 @@ a {
 .metro .bg-hover-green:hover {
   background-color: #60a917 !important;
 }
+.metro .bg-hover-NACOSS-UNN:hover {
+  background-color: #60a917 !important;
+}
 .metro .bg-hover-emerald:hover {
   background-color: #008a00 !important;
 }
@@ -9320,6 +9323,9 @@ a {
   color: #a4c400 !important;
 }
 .metro .fg-hover-green:hover {
+  color: #60a917 !important;
+}
+.metro .fg-hover-NACOSS-UNN:hover {
   color: #60a917 !important;
 }
 .metro .fg-hover-emerald:hover {
@@ -9478,6 +9484,9 @@ a {
 .metro .bg-active-green:active {
   background-color: #60a917 !important;
 }
+.metro .bg-active-NACOSS-UNN:active {
+  background-color: #60a917 !important;
+}
 .metro .bg-active-emerald:active {
   background-color: #008a00 !important;
 }
@@ -9632,6 +9641,9 @@ a {
   color: #a4c400 !important;
 }
 .metro .fg-active-green:active {
+  color: #60a917 !important;
+}
+.metro .fg-active-NACOSS-UNN:active {
   color: #60a917 !important;
 }
 .metro .fg-active-emerald:active {
@@ -9790,6 +9802,9 @@ a {
 .metro .bg-focus-green:focus {
   background-color: #60a917 !important;
 }
+.metro .bg-focus-NACOSS-UNN:focus {
+  background-color: #60a917 !important;
+}
 .metro .bg-focus-emerald:focus {
   background-color: #008a00 !important;
 }
@@ -9944,6 +9959,9 @@ a {
   color: #a4c400 !important;
 }
 .metro .fg-focus-green:focus {
+  color: #60a917 !important;
+}
+.metro .fg-focus-NACOSS-UNN:focus {
   color: #60a917 !important;
 }
 .metro .fg-focus-emerald:focus {

@@ -24,7 +24,7 @@ limitations under the License.
         <meta name="keywords" content=" metro ui, NDG, NACOSS UNN">
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-        
+
         <link href="css/metro-bootstrap.css" rel="stylesheet">
         <link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
         <link href="css/iconFont.css" rel="stylesheet">
@@ -44,19 +44,21 @@ limitations under the License.
         <!-- Local JavaScript -->
         <script src="js/docs.js"></script>
         <script src="js/github.info.js"></script>
-        
+
         <!-- Page Title -->
         <title>NACOSS UNN : Title</title>        
     </head>
     <body class="metro" style="background-image: url(img/bg.jpg); background-repeat: repeat;">
         <div class="container bg-white">            
-            <?php require_once './header.php';?>
+            <?php require_once './header.php'; ?>
             <br/>
-            
-            <!--Your code goes here-->
-            
+            <div class="padding20">
+
+                <!--Your code goes here-->
+
+            </div>
             <br/>
-            <?php require_once './footer.php';?>
+            <?php require_once './footer.php'; ?>
         </div>
     </body>
 </html>
