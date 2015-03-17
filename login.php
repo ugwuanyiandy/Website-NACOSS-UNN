@@ -33,8 +33,7 @@ if (isLoggedIn()) {
                     //login unsuccessful
                     $error_message = "Oops! Something went wrong, please try again.";
                 }
-            }
-            else{
+            } else {
                 $success = false;
             }
         } else {
@@ -174,7 +173,9 @@ limitations under the License.
                             </div>
                         </div>
                         <div class="span7 panel shadow">
-                            <h2 class="panel-header bg-grayDark fg-white"><?= $showLoginPage ? "Login" : "Register" ?></h2>
+                            <h2 class="panel-header bg-grayDark fg-white">
+                                <?= $showLoginPage ? "Login" : "Register" ?>
+                            </h2>
                             <?php if ($isFormRequest && !$success) { ?>
                                 <div class="panel-content">
                                     <p class="fg-red"><?= $error_message ?></p>
@@ -199,15 +200,19 @@ limitations under the License.
                                                     <input class="password" name='password' style="width: inherit" type='password' tabindex='2' />
                                                 </div>
                                             </div>
-                                            <div class="no-phone offset1">
-                                                <input class="button default bg-NACOSS-UNN bg-hover-dark" type='submit'
+                                            <div class="no-phone" style="padding-left: 80px">
+                                                <input class="button default bg-NACOSS-UNN bg-hover-dark" style="width: 300px" type='submit'
                                                        name='submit' value='Login' tabindex='3'/>
+                                                <br/>
                                                 <a href="login.php?s=2" class=""> &nbsp;&nbsp;create account?</a>
+                                                <a href="resetPassword.php" class=""> &nbsp;&nbsp;forgot password?</a>
                                             </div>
                                             <div class="on-phone no-tablet no-desktop padding20 ntp nbp">
                                                 <input class="button default bg-NACOSS-UNN bg-hover-dark" type='submit'
                                                        name='submit' value='Login' tabindex='3'/>
-                                                <a href="login.php?s=2" class=""> &nbsp;&nbsp;create account?</a>
+                                                <br/>
+                                                <a href="login.php?s=2" class="">create account?</a>
+                                                <a href="resetPassword.php" class=""> &nbsp;&nbsp;forgot password?</a>
                                             </div>
                                         </div>
                                     <?php } else { ?>
@@ -253,7 +258,7 @@ limitations under the License.
                                                 <label class="span2">Phone<span class="fg-red">*</span></label>
                                                 <div class="span4">
                                                     <input name='phone' style="width: inherit" type='tel' 
-                                                           <?= $isFormRequest ? "value='$phone'" : ""; ?> tabindex='6'  />
+                                                           <?= $isFormRequest ? "value='$phone'" : ""; ?> tabindex='6'/>
                                                 </div>
                                             </div>
                                             <div class="row" >
