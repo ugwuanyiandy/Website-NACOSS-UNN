@@ -1,8 +1,7 @@
 <?php
+require_once './functions.php';
 $request = filter_input(INPUT_POST, "submit");
 if (isset($request)) {
-    //ini_set('display_errors',1);
-    require_once 'constants.php';
     //Set values
     $contact_email = getContactEmail();
 
