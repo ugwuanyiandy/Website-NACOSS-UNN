@@ -4,6 +4,14 @@ require_once './functions.php';
 if (!isLoggedIn()) {
     //This page is for registered users only
     header("Location: login.php");
+} else {
+    $searchQuery = "";
+    $request = filter_input(INPUT_POST, "submit");
+    if (isset($request)) {
+        $searchQuery = filter_input(INPUT_POST, "search");
+        
+        //Process query
+    }
 }
 ?>
 
@@ -55,15 +63,21 @@ limitations under the License.
         <script src="js/github.info.js"></script>
 
         <!-- Page Title -->
-        <title>NACOSS UNN : Title</title>        
+        <title>NACOSS UNN : Library</title>        
     </head>
     <body class="metro" style="background-image: url(img/bg.jpg); background-repeat: repeat;">
         <div class="container bg-white">            
             <?php require_once './header.php'; ?>
             <br/>
             <div class="padding20">
-
-            <!--Your code goes here-->
+                <form method="post" action="library.php">
+                    <div class="input-control text" data-role="input-control">
+                        <input type="text" value="<?=$searchQuery?>" placeholder="Search" name="search"/>
+                        <button class="btn-search" name="submit" type="submit"></button>
+                    </div>
+                </form>
+                
+                <!--Your code goes here-->
 
             </div>
             <br/>
