@@ -228,13 +228,6 @@ limitations under the License.
                                                            <?= $isFormRequest ? "value='$first_name'" : ""; ?> tabindex='4' />
                                                 </div>
                                             </div>
-                                            <!--                                            <div class="row" >
-                                                                                            <label class="span2">Other names</label>
-                                                                                            <div class="span4">
-                                                                                                <input type='text' maxlength="30" style="width: inherit" name='other_names'
-                                            <?= $isFormRequest ? "value='$other_names'" : ""; ?> tabindex='5'   />
-                                                                                            </div>
-                                                                                        </div>-->
                                             <div class="row" >
                                                 <label class="span2">Reg. Number<span class="fg-red">*</span></label>
                                                 <div class="span4">
