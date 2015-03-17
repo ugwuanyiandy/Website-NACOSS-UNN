@@ -35,6 +35,28 @@ function isLoggedIn() {
     return false;
 }
 
+function isUserDeleted() {
+    $query = "select is_deleted from users where regno = '" . getUserID() . "'";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        return $row['is_deleted'] == 1;
+    }
+    return true; //Restrict access if record does not exist
+}
+
+function isUserSuspended() {
+    $query = "select is_suspended from users where regno = '" . getUserID() . "'";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        return $row['is_suspended'] == 1;
+    }
+    return false; //Restrict access if record does not exist
+}
+
 function getContactEmail() {
     $query = "select value from settings where name = 'email'";
     $link = getDefaultDBConnection();
@@ -55,6 +77,19 @@ function getContactNumbers() {
         return empty($row['value']) ? array() : explode(",", $row['value']);
     }
     return array();
+}
+
+function getHomePageSliderImages() {
+    $array = array();
+    $query = "select * from home_page_slider limit 10";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        while($row = mysqli_fetch_array($result)){
+            array_push($array, $row);
+        }
+    }
+    return $array;
 }
 
 /**
