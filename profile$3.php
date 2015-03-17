@@ -20,4 +20,9 @@ require_once './functions.php';
 ?>
 <div>
     <h2>Results</h2>
+    <div class="row bg-grayLighter">
+        <div class="padding5">
+            
+        </div>
+    </div>
 </div>

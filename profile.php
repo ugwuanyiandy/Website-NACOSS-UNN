@@ -29,7 +29,6 @@ if (isLoggedIn()) {
 //        $level = html_entity_decode(filter_input(INPUT_POST, "level"));
 //        $phone = html_entity_decode(filter_input(INPUT_POST, "phone"));
 //        $email = html_entity_decode(filter_input(INPUT_POST, "email"));
-            
             //Validating details
             $error_message = getInvalidParameters($array);
             $ok = empty($error_message);
@@ -126,7 +125,7 @@ limitations under the License.
                         <div class="span3">
                             <nav class="sidebar">
                                 <ul class="">
-                                    <li class="<?= $page == 1 ? "stick bg-NACOSS-UNN" : "" ?>">
+                                    <li class="<?= $page == 1 || $page == 2 ? "stick bg-NACOSS-UNN" : "" ?>">
                                         <a href="profile.php?p=1">Profile</a>
                                     </li>
                                     <li class="<?= $page == 3 ? "stick bg-NACOSS-UNN" : "" ?>">
@@ -140,20 +139,27 @@ limitations under the License.
                         </div>
 
                         <div class="span9">
-                            <?php
-                            switch ($page) {
-                                case 1:
-                                    include_once './profile$1.php';
-                                    break;
-                                case 2:
-                                    include_once './profile$2.php';
-                                    break;
-                                case 3:
-                                    include_once './profile$3.php';
-                                    break;
-                                case 4:
-                                    include_once './profile$4.php';
-                                    break;
+                            <?php if (isUserDeleted()) { ?>
+                                <h2>This account no longer exist, please contact site admin if this is an error</h2>
+                                <?php } else if (isUserSuspended()) {
+                                ?>
+                                <h2>This account has been suspended, contact site admin to resolve this</h2>
+                                <?php
+                            } else {
+                                switch ($page) {
+                                    case 1:
+                                        include_once './profile$1.php';
+                                        break;
+                                    case 2:
+                                        include_once './profile$2.php';
+                                        break;
+                                    case 3:
+                                        include_once './profile$3.php';
+                                        break;
+                                    case 4:
+                                        include_once './profile$4.php';
+                                        break;
+                                }
                             }
                             ?>
                         </div>

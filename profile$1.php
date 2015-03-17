@@ -21,6 +21,20 @@ $array = getUserData();
 ?>
 <div>
     <h2>Profile</h2>
-    
-    Array = <?= var_dump($array)?>
+    <div class="row">
+        <a class="place-right button default bg-NACOSS-UNN bg-hover-dark fg-hover-white" href="logout.php">
+            Log out
+        </a>
+        <div class="place-right">
+            &nbsp;
+        </div>
+        <a class="place-right button default bg-NACOSS-UNN bg-hover-dark fg-hover-white" href="profile.php?p=2">
+            Edit Profile
+        </a>
+    </div>
+    <div class="row bg-grayLighter">
+        <div class="padding5">
+            
+        </div>
+    </div>
 </div>

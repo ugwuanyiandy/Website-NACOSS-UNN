@@ -20,4 +20,14 @@ require_once './functions.php';
 ?>
 <div>
    <h2>Payments</h2>
+    <div class="row">
+        <a class="place-right button default bg-NACOSS-UNN bg-hover-dark fg-hover-white" href="pay.php">
+            Pay
+        </a>
+    </div>
+    <div class="row bg-grayLighter">
+        <div class="padding5">
+            
+        </div>
+    </div>
 </div>
