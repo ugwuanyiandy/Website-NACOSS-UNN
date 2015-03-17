@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2015 at 11:42 AM
+-- Generation Time: Mar 17, 2015 at 04:16 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -47,6 +47,44 @@ CREATE TABLE IF NOT EXISTS `faq` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `home_page_slider`
+--
+
+CREATE TABLE IF NOT EXISTS `home_page_slider` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_url` text NOT NULL,
+  `link` text NOT NULL,
+  `caption` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `home_page_slider`
+--
+
+INSERT INTO `home_page_slider` (`id`, `img_url`, `link`, `caption`) VALUES
+(1, 'img/b6.jpg', 'library.php', 'Keep learning, try out our e-Library'),
+(2, 'img/b3.jpg', 'forum/', 'Sample messages'),
+(3, 'img/b4.jpeg', '#', 'Sample messages');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `headline` varchar(60) NOT NULL,
+  `content` text NOT NULL,
+  `time_of_post` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expire_date` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `settings`
 --
 
@@ -85,6 +123,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `interest` text,
   `bio` text,
   `verified` int(1) NOT NULL DEFAULT '0',
+  `is_suspended` int(1) NOT NULL DEFAULT '0',
+  `is_deleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`regno`),
   UNIQUE KEY `regno` (`regno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -93,8 +133,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`regno`, `first_name`, `last_name`, `other_names`, `password`, `department`, `level`, `phone`, `email`, `dob`, `address1`, `address2`, `interest`, `bio`, `verified`) VALUES
-('1234/123456', 'Jane', 'Doe', 'Anonymous', 'd14f21b5919900f4cc49333652fb4e92940ac55d', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `users` (`regno`, `first_name`, `last_name`, `other_names`, `password`, `department`, `level`, `phone`, `email`, `dob`, `address1`, `address2`, `interest`, `bio`, `verified`, `is_suspended`, `is_deleted`) VALUES
+('1234/123456', 'Jane', 'Doe', 'Anonymous', 'd14f21b5919900f4cc49333652fb4e92940ac55d', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
