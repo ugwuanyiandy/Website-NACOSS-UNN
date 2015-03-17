@@ -92,6 +92,19 @@ function getHomePageSliderImages() {
     return $array;
 }
 
+function getFAQs() {
+    $array = array();
+    $query = "select * from faq limit 20";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        while($row = mysqli_fetch_array($result)){
+            array_push($array, $row);
+        }
+    }
+    return $array;
+}
+
 /**
  * @returns user display name
  */
