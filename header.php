@@ -30,6 +30,9 @@ $loggedIn = isLoggedIn();
                         </li>
                     <?php } ?>
                     <li>
+                        <a class="bg-hover-dark" href="news.php">News</a>
+                    </li>
+                    <li>
                         <a class="bg-hover-dark" target="_blank" href="#">Alumni</a>
                     </li>
                     <li>
