@@ -85,7 +85,20 @@ function getHomePageSliderImages() {
     $link = getDefaultDBConnection();
     $result = mysqli_query($link, $query);
     if ($result) {
-        while($row = mysqli_fetch_array($result)){
+        while ($row = mysqli_fetch_array($result)) {
+            array_push($array, $row);
+        }
+    }
+    return $array;
+}
+
+function getNews() {
+    $array = array();
+    $query = "select * from news limit 30";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        while ($row = mysqli_fetch_array($result)) {
             array_push($array, $row);
         }
     }
@@ -98,8 +111,43 @@ function getFAQs() {
     $link = getDefaultDBConnection();
     $result = mysqli_query($link, $query);
     if ($result) {
-        while($row = mysqli_fetch_array($result)){
+        while ($row = mysqli_fetch_array($result)) {
             array_push($array, $row);
+        }
+    }
+    return $array;
+}
+
+function getPayments() {
+    $array = array();
+    $query = "select * from payments where user_id='" . getUserID() . "'";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        while ($row = mysqli_fetch_array($result)) {
+            array_push($array, $row);
+        }
+    }
+    return $array;
+}
+
+function getResults() {
+    $array = array();
+    $query = "select entry_year from users where regno='" . getUserID() . "'";
+    $link = getDefaultDBConnection();
+    $result = mysqli_query($link, $query);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        $entry_year = $row['entry_year'];
+    }
+
+    if (isset($entry_year)) {
+        $query = "select * from results where entry_year='$entry_year' order by year,semester,course_code DESC";
+        $result = mysqli_query($link, $query);
+        if ($result) {
+            while ($row = mysqli_fetch_array($result)) {
+                array_push($array, $row);
+            }
         }
     }
     return $array;
@@ -382,4 +430,17 @@ function writeToLog($exception) {
             . "Message: " . $exception->getMessage();
     $query = "insert into error_log set message = '$message'";
     mysqli_query($link, $query);
+}
+
+/**
+ * Adds bug report to database
+ * @param type $array
+ * @return boolean true if report was successfully sent, false otherwise
+ */
+function reportBug($array) {
+    $link = getDefaultDBConnection();
+    $query = "insert into error_reports set userid = '" . getUserID() . "', "
+            . "subject='" . $array['subject'] . "', "
+            . "comment = '" . $array['comment'] . "'";
+    return mysqli_query($link, $query);
 }
