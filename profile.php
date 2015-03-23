@@ -8,11 +8,13 @@ if (isLoggedIn()) {
      * Page 2: Edit profile page
      * Page 3: View Results page
      * Page 4: View payments page
+     * Page 5: View Report a Bug page
      */
     $page = 1;
+    $array = array();
 
-    $isFormRequest = filter_input(INPUT_POST, "submit");
-    if ($isFormRequest) {
+    $isEditFormRequest = filter_input(INPUT_POST, "editProfileForm");
+    if ($isEditFormRequest) {
         //Handle a post request from form
         $array = filter_input_array(INPUT_POST);
         if ($array !== FALSE || $array !== null) {
@@ -20,15 +22,6 @@ if (isLoggedIn()) {
                 $array[$key] = html_entity_decode($array[$key]);
             }
 
-//        $first_name = html_entity_decode(filter_input(INPUT_POST, "first_name"));
-//        $last_name = html_entity_decode(filter_input(INPUT_POST, "last_name"));
-//        $other_names = html_entity_decode(filter_input(INPUT_POST, "other_names"));
-//        $regno = html_entity_decode(filter_input(INPUT_POST, "regno"));
-//        $password1 = html_entity_decode(filter_input(INPUT_POST, "password1"));
-//        $dept = html_entity_decode(filter_input(INPUT_POST, "dept"));
-//        $level = html_entity_decode(filter_input(INPUT_POST, "level"));
-//        $phone = html_entity_decode(filter_input(INPUT_POST, "phone"));
-//        $email = html_entity_decode(filter_input(INPUT_POST, "email"));
             //Validating details
             $error_message = getInvalidParameters($array);
             $ok = empty($error_message);
@@ -49,14 +42,49 @@ if (isLoggedIn()) {
         }
         $page = $success ? 1 : 2;
     } else {
-        //Check if switch request
-        $switchRequest = filter_input(INPUT_GET, "p");
-        if (!empty($switchRequest)) {
-            //switch form
-            $page = $switchRequest;
+        $isreportBugRequest = filter_input(INPUT_POST, "reportBugForm");
+        if ($isreportBugRequest) {
+            //Handle request from "Report a Bug" page
+            $array = filter_input_array(INPUT_POST);
+            if ($array !== FALSE || $array !== null) {
+                foreach ($array as $key => $value) {
+                    $array[$key] = html_entity_decode($array[$key]);
+                }
+
+                //Validating details
+                if (empty(filter_input(INPUT_POST, "subject"))) {
+                    $error_message = "Please specify a subject";
+                } elseif (empty(filter_input(INPUT_POST, "comment"))) {
+                    $error_message = "Please add a description of the bug";
+                }
+
+                $ok = empty($error_message);
+            } else {
+                $ok = false;
+                $error_message = "Oops! Something went wrong, parameters are invalid.";
+            }
+
+            //Send bug report
+            if ($ok) {
+                $success = reportBug($array);
+                if (!$success) {
+                    //Sending failed
+                    $error_message = "Oops! Something went wrong, please try again.";
+                }
+            } else {
+                $success = false;
+            }
+            $page = 5;
         } else {
-            //show page 1 (profile page)
-            $page = 1;
+            //Check if switch request
+            $switchRequest = filter_input(INPUT_GET, "p");
+            if (!empty($switchRequest)) {
+                //switch form
+                $page = $switchRequest;
+            } else {
+                //show page 1 (profile page)
+                $page = 1;
+            }
         }
     }
 } else {
@@ -136,12 +164,13 @@ limitations under the License.
                                     </li>
                                 </ul>
                             </nav>
+                            <a href="profile.php?p=5">report a bug</a>
                         </div>
 
                         <div class="span9">
                             <?php if (isUserDeleted()) { ?>
                                 <h2>This account no longer exist, please contact site admin if this is an error</h2>
-                                <?php } else if (isUserSuspended()) {
+                            <?php } else if (isUserSuspended()) {
                                 ?>
                                 <h2>This account has been suspended, contact site admin to resolve this</h2>
                                 <?php
@@ -158,6 +187,9 @@ limitations under the License.
                                         break;
                                     case 4:
                                         include_once './profile$4.php';
+                                        break;
+                                    case 5:
+                                        include_once './profile$5.php';
                                         break;
                                 }
                             }
