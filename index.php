@@ -122,6 +122,45 @@ limitations under the License.
 
             <!--Your code goes here-->
 
+
+			<div>
+				<div style = "width:70%; margin:0% 15% 0% 15%; ">
+				
+					<div style = "float:left; clear:right; margin-right:10%">	
+						<div class="image-container shadow">
+							<a href = "prospectus.php"> <img src="img/prosp.jpg"> </a>
+								<div class="overlay">
+									What do You Know about Your Department? View The NACOSS prospectus to stay informed.
+								</div>
+						</div>
+					</div>
+						
+					<div style = "float:left; clear:right; margin-right:10%">		
+						<div class="image-container shadow">
+							<a href = "library.php"> <img src="img/lib.jpg"> </a>
+								<div class="overlay">
+									The NACOSS online library is now available for you. View materials now, or help us grow by submitting e-books for archiving.
+								</div>
+						</div>
+					</div>
+					
+					<div style = "float:left; clear:right">			
+						<div class="image-container shadow">
+							<a href = #><img src="img/ndg.jpg"></a>
+								<div class="overlay">
+									Contribute to this and other future projects... <br> Join <a href = "#"> NDG </a> today.
+								</div>
+						</div>
+					</div>
+
+				</div>
+				
+			</div>	
+		
+		</div>
+
+            <!--Your code goes here-->
+
             <br/>
             <div class="bg-grayLighter">
                 <div class="padding5 grid">
