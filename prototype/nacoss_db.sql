@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2015 at 04:16 PM
+-- Generation Time: Mar 23, 2015 at 03:23 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -23,6 +23,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admins`
+--
+
+CREATE TABLE IF NOT EXISTS `admins` (
+  `username` varchar(15) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `type` enum('WEBMASTER','PRO','LIBRARIAN','') NOT NULL,
+  `email` text NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `error_log`
 --
 
@@ -36,13 +50,38 @@ CREATE TABLE IF NOT EXISTS `error_log` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `error_reports`
+--
+
+CREATE TABLE IF NOT EXISTS `error_reports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(11) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `comment` text NOT NULL,
+  `time_of_report` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `faq`
 --
 
 CREATE TABLE IF NOT EXISTS `faq` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
-  `answer` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `answer` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id`, `question`, `answer`) VALUES
+(1, 'How do I get an academic adviser?', 'Don&rsquo;t worry, one is automatically assigned to you, you simply go to the general office and see the list'),
+(2, 'Must I be a programmer in order to do well in computer science?', 'hmm, Yes & No. Yes because most of your assignments and lectures will revolve around a lot of programming concept and tools (not to mention your final year project). No because most people can simply study particularly for a programming exam and pass without really knowing it. (Although it is a standard advice; to be at least average in one programming language (preferably c++ or java) even though you specialize in other aspects of computer science).');
 
 -- --------------------------------------------------------
 
@@ -70,6 +109,21 @@ INSERT INTO `home_page_slider` (`id`, `img_url`, `link`, `caption`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `library`
+--
+
+CREATE TABLE IF NOT EXISTS `library` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(60) NOT NULL,
+  `author` varchar(30) NOT NULL,
+  `keywords` varchar(30) NOT NULL,
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `news`
 --
 
@@ -79,6 +133,47 @@ CREATE TABLE IF NOT EXISTS `news` (
   `content` text NOT NULL,
   `time_of_post` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `expire_date` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `headline`, `content`, `time_of_post`, `expire_date`) VALUES
+(1, 'Microsoft founder, Bill Gates, is quoted as saying:', '', '2015-03-20 10:54:19', '2015-03-20 10:54:19'),
+(2, 'Microsoft founder, Bill Gates, is quoted as saying:', '', '2015-03-20 10:54:35', '2015-03-20 10:54:35'),
+(3, 'Software Development Day', 'Unfortunately, in these dire economic times, the ability of school systems such as ours to get the tools necessary to help our students surprise all of us beyond expectations is imperiled.  That is why we’re asking for your help in donating your used computers and computer systems to [school name] so that our students may have access to simple, yet critical, learning advantages such as the internet, word processing, and spreadsheet creation, as well as the opportunity to gain lifelong computing skills.\r\n\r\nI will follow up with you shortly to answer any questions you may have.  If you wish, please take a moment to indicate that you will help sponsor this community effort by calling me at [insert local phone number] or by returning the enclosed response form.  Let me thank you in advance for your time and support.  I look forward to speaking with you soon.\r\n', '2015-03-20 11:21:26', '2015-03-20 11:21:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE IF NOT EXISTS `payments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(11) NOT NULL,
+  `description` text NOT NULL,
+  `time_of_payment` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `results`
+--
+
+CREATE TABLE IF NOT EXISTS `results` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_url` text NOT NULL,
+  `entry_year` year(4) NOT NULL,
+  `semester` int(1) NOT NULL,
+  `year` int(1) NOT NULL COMMENT 'course level i.e 1 for 1st year, 2 for second year etc. ',
+  `course_code` varchar(6) NOT NULL,
+  `page_no` int(1) NOT NULL,
+  `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -113,8 +208,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(30) NOT NULL,
   `other_names` varchar(30) DEFAULT NULL,
   `password` varchar(40) NOT NULL,
-  `department` varchar(20) DEFAULT NULL,
+  `department` varchar(30) DEFAULT NULL,
   `level` varchar(3) DEFAULT NULL,
+  `entry_year` year(4) NOT NULL,
   `phone` varchar(13) NOT NULL,
   `email` text NOT NULL,
   `dob` date DEFAULT NULL,
@@ -122,6 +218,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `address2` text,
   `interest` text,
   `bio` text,
+  `pic_url` text NOT NULL,
   `verified` int(1) NOT NULL DEFAULT '0',
   `is_suspended` int(1) NOT NULL DEFAULT '0',
   `is_deleted` int(1) NOT NULL DEFAULT '0',
@@ -133,8 +230,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`regno`, `first_name`, `last_name`, `other_names`, `password`, `department`, `level`, `phone`, `email`, `dob`, `address1`, `address2`, `interest`, `bio`, `verified`, `is_suspended`, `is_deleted`) VALUES
-('1234/123456', 'Jane', 'Doe', 'Anonymous', 'd14f21b5919900f4cc49333652fb4e92940ac55d', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
+INSERT INTO `users` (`regno`, `first_name`, `last_name`, `other_names`, `password`, `department`, `level`, `entry_year`, `phone`, `email`, `dob`, `address1`, `address2`, `interest`, `bio`, `pic_url`, `verified`, `is_suspended`, `is_deleted`) VALUES
+('1234/123456', 'Jane', 'Doe', 'Anonymous', 'd14f21b5919900f4cc49333652fb4e92940ac55d', '', '', 2015, '', 'example@domain.com', '2012-12-12', NULL, NULL, NULL, NULL, '', 1, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
