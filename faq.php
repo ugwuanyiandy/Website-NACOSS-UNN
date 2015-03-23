@@ -55,16 +55,17 @@ limitations under the License.
             <br/>
             <div class="padding20">
                 <h1>Frequently Asked Questions</h1>
+                <br/>
                 <?php
                 $array = getFAQs();
                 for ($index = 0; $index < count($array); $index++) {
                     ?>
                     <div class="panel shadow" data-role="panel">
                         <div class="panel-header">
-                            <?= "Q" . ($index + 1) . ". " . $array['question'] ?>
+                            <?= "Q" . ($index + 1) . ". " . $array[$index]['question'] ?>
                         </div>
                         <div class="panel-content">
-                            <strong>Reply:</strong> <?= $array['answer'] ?>
+                            <strong>Reply:</strong> <?= $array[$index]['answer'] ?>
                         </div>
                     </div>
                     <?php
